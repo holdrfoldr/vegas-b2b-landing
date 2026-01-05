@@ -12,6 +12,9 @@ interface Particle {
   size: number;
   opacity: number;
   trail: { x: number; y: number }[];
+  noiseOffsetX: number;
+  noiseOffsetY: number;
+  autonomousSpeed: number;
 }
 
 interface ParticleBackgroundProps {
@@ -23,6 +26,13 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number>();
+  const themeRef = useRef(isDark);
+  const timeRef = useRef(0);
+  const isMobileRef = useRef(false);
+
+  useEffect(() => {
+    themeRef.current = isDark;
+  }, [isDark]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -34,12 +44,19 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      // Detect mobile
+      isMobileRef.current = window.innerWidth < 768 ||
+        ('ontouchstart' in window && navigator.maxTouchPoints > 0);
+
       initParticles();
     };
 
     const initParticles = () => {
       particlesRef.current = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 12000);
+      // Reduce particles on mobile for performance
+      const density = isMobileRef.current ? 15000 : 12000;
+      const particleCount = Math.floor((canvas.width * canvas.height) / density);
 
       for (let i = 0; i < particleCount; i++) {
         const x = Math.random() * canvas.width;
@@ -55,6 +72,9 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
           size: Math.random() * 2.5 + 1.5,
           opacity: Math.random() * 0.6 + 0.3,
           trail: [],
+          noiseOffsetX: Math.random() * 1000,
+          noiseOffsetY: Math.random() * 1000,
+          autonomousSpeed: Math.random() * 0.2 + 0.1,
         });
       }
     };
@@ -66,13 +86,31 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
       };
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault(); // Prevent scroll during interaction
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        mouseRef.current = {
+          x: touch.clientX,
+          y: touch.clientY,
+        };
+      }
+    };
+
+    const handleTouchEnd = () => {
+      // Reset to off-screen when touch ends
+      mouseRef.current = { x: -9999, y: -9999 };
+    };
+
     const animate = () => {
       if (!ctx || !canvas) return;
 
-      ctx.fillStyle = isDark ? 'rgba(10, 14, 23, 0.1)' : 'rgba(255, 255, 255, 0.1)';
+      timeRef.current += 0.01;
+
+      ctx.fillStyle = themeRef.current ? 'rgba(10, 14, 23, 0.1)' : 'rgba(255, 255, 255, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const color = isDark ? '0, 240, 255' : '59, 130, 246';
+      const color = themeRef.current ? '0, 240, 255' : '59, 130, 246';
 
       particlesRef.current.forEach((particle, i) => {
         const dx = mouseRef.current.x - particle.x;
@@ -87,6 +125,16 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
           particle.vx -= forceDirectionX * force * 0.8;
           particle.vy -= forceDirectionY * force * 0.8;
         }
+
+        // Autonomous drift using simplified Perlin noise
+        const noiseX = Math.sin(particle.noiseOffsetX + timeRef.current) * 0.5 +
+                       Math.sin((particle.noiseOffsetX + timeRef.current) * 2.3) * 0.3;
+        const noiseY = Math.cos(particle.noiseOffsetY + timeRef.current) * 0.5 +
+                       Math.cos((particle.noiseOffsetY + timeRef.current) * 1.7) * 0.3;
+
+        // Apply autonomous drift
+        particle.vx += noiseX * particle.autonomousSpeed * 0.05;
+        particle.vy += noiseY * particle.autonomousSpeed * 0.05;
 
         particle.vx += (particle.baseX - particle.x) * 0.01;
         particle.vy += (particle.baseY - particle.y) * 0.01;
@@ -153,16 +201,20 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd);
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isDark]);
+  }, []);
 
   return (
     <canvas

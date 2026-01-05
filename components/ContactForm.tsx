@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle } from '@/components/icons';
 import { useTheme } from './ThemeProvider';
 
 export default function ContactForm() {

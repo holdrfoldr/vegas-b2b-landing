@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, X } from 'lucide-react';
+import { Play, X } from '@/components/icons';
 import { useTheme } from './ThemeProvider';
 
 export default function DemoVideo() {

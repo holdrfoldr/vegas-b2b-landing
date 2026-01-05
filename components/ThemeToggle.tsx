@@ -1,6 +1,6 @@
 'use client';
 
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from '@/components/icons';
 import { useTheme } from './ThemeProvider';
 import { motion } from 'framer-motion';
 

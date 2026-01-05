@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Check, Zap } from 'lucide-react';
+import { Check, Zap } from '@/components/icons';
 import { useTheme } from './ThemeProvider';
 
 const plans = [

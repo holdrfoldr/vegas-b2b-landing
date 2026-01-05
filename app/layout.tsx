@@ -6,7 +6,10 @@ import "./globals.css";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "600", "700"], // Optimized: removed 300 and 500
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -20,7 +23,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme') || 'dark';
+                  document.documentElement.className = theme;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>

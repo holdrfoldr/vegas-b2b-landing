@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, Eye, Bot, Lock, AlertTriangle, Award, TrendingUp, Clock } from 'lucide-react';
+import { Shield, Eye, Bot, Lock, AlertTriangle, Award, TrendingUp, Clock } from '@/components/icons';
 import ParticleBackground from '@/components/ParticleBackground';
 import ThemeToggle from '@/components/ThemeToggle';
 import ContactForm from '@/components/ContactForm';

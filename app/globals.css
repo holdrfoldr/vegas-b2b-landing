@@ -24,7 +24,14 @@ body {
   color: var(--foreground);
   background: var(--background);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    /* Re-enable only for manual toggle, not initial load */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    transition-delay: 100ms; /* Prevents flash on page load */
+  }
 }
 
 @layer utilities {
