@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default to dark theme to prevent flash */
+html {
+  background-color: #0a0e17;
+  color: #ffffff;
+}
+
 .dark {
   --background: #0a0e17;
   --foreground: #ffffff;

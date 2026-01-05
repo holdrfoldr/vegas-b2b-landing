@@ -80,26 +80,13 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = {
-        x: e.clientX,
-        y: e.clientY,
-      };
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault(); // Prevent scroll during interaction
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
+      // Only track mouse on desktop, not on mobile
+      if (!isMobileRef.current) {
         mouseRef.current = {
-          x: touch.clientX,
-          y: touch.clientY,
+          x: e.clientX,
+          y: e.clientY,
         };
       }
-    };
-
-    const handleTouchEnd = () => {
-      // Reset to off-screen when touch ends
-      mouseRef.current = { x: -9999, y: -9999 };
     };
 
     const animate = () => {
@@ -201,15 +188,11 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd);
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

@@ -31,7 +31,11 @@ export default function RootLayout({
               (function() {
                 try {
                   const theme = localStorage.getItem('theme') || 'dark';
-                  document.documentElement.className = theme;
+                  const root = document.documentElement;
+                  root.className = theme;
+                  // Set background color immediately to prevent flash
+                  root.style.backgroundColor = theme === 'dark' ? '#0a0e17' : '#ffffff';
+                  root.style.colorScheme = theme;
                 } catch (e) {}
               })();
             `,
