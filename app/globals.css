@@ -20,10 +20,10 @@ html {
 .light {
   --background: #ffffff;
   --foreground: #111827;
-  --accent: #3b82f6;
+  --accent: #0066ff;
   --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(59, 130, 246, 0.3);
-  --text-secondary: #374151;
+  --glass-border: rgba(0, 102, 255, 0.5);
+  --text-secondary: #4b5563;
 }
 
 body {

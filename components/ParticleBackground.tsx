@@ -74,7 +74,7 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
           trail: [],
           noiseOffsetX: Math.random() * 1000,
           noiseOffsetY: Math.random() * 1000,
-          autonomousSpeed: Math.random() * 0.2 + 0.1,
+          autonomousSpeed: Math.random() * 0.1 + 0.05,
         });
       }
     };
@@ -92,7 +92,7 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
     const animate = () => {
       if (!ctx || !canvas) return;
 
-      timeRef.current += 0.01;
+      timeRef.current += 0.005;
 
       ctx.fillStyle = themeRef.current ? 'rgba(10, 14, 23, 0.1)' : 'rgba(255, 255, 255, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -120,8 +120,8 @@ export default function ParticleBackground({ isDark = true }: ParticleBackground
                        Math.cos((particle.noiseOffsetY + timeRef.current) * 1.7) * 0.3;
 
         // Apply autonomous drift
-        particle.vx += noiseX * particle.autonomousSpeed * 0.05;
-        particle.vy += noiseY * particle.autonomousSpeed * 0.05;
+        particle.vx += noiseX * particle.autonomousSpeed * 0.02;
+        particle.vy += noiseY * particle.autonomousSpeed * 0.02;
 
         particle.vx += (particle.baseX - particle.x) * 0.01;
         particle.vy += (particle.baseY - particle.y) * 0.01;
