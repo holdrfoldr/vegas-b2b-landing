@@ -45,8 +45,19 @@ export default function ContactForm() {
 
     setStatus('loading');
 
-    setTimeout(() => {
-      console.log('Form submitted:', formState);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       setStatus('success');
       setFormState({
         name: '',
@@ -57,7 +68,11 @@ export default function ContactForm() {
       });
 
       setTimeout(() => setStatus('idle'), 5000);
-    }, 1500);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -202,6 +217,17 @@ export default function ContactForm() {
         >
           <CheckCircle2 className="w-5 h-5" />
           <span>Thank you! We&apos;ll be in touch within 24 hours.</span>
+        </motion.div>
+      )}
+
+      {status === 'error' && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-2 text-red-500 bg-red-500/10 px-4 py-3 rounded-lg"
+        >
+          <AlertCircle className="w-5 h-5" />
+          <span>Failed to send message. Please try again or email us directly.</span>
         </motion.div>
       )}
 

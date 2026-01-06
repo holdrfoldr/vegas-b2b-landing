@@ -34,6 +34,10 @@ A modern, interactive landing page for a B2B cybersecurity and lead recovery ser
 # Install dependencies
 npm install
 
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local and add your Resend API key and contact email
+
 # Run development server
 npm run dev
 
@@ -45,6 +49,44 @@ npm start
 ```
 
 Visit [http://localhost:3000](http://localhost:3000)
+
+## Email Setup (Contact Form)
+
+The contact form uses [Resend](https://resend.com) for email delivery (free tier: 3,000 emails/month).
+
+### Setup Steps:
+
+1. **Create Resend Account**:
+   - Go to [resend.com](https://resend.com) and sign up
+   - Verify your email address
+
+2. **Get API Key**:
+   - Go to [API Keys](https://resend.com/api-keys)
+   - Click "Create API Key"
+   - Copy the key (starts with `re_`)
+
+3. **Configure Environment Variables**:
+   ```bash
+   # Create .env.local file
+   cp .env.example .env.local
+   ```
+
+   Add to `.env.local`:
+   ```env
+   RESEND_API_KEY=re_your_actual_key_here
+   CONTACT_EMAIL=your-email@example.com
+   ```
+
+4. **Deploy to Vercel**:
+   - Push code to GitHub
+   - In Vercel project settings → Environment Variables
+   - Add `RESEND_API_KEY` and `CONTACT_EMAIL`
+   - Redeploy
+
+5. **(Optional) Use Custom Domain**:
+   - In Resend dashboard → Domains → Add Domain
+   - Follow DNS setup instructions
+   - Update `from` field in `app/api/contact/route.ts` to use your domain
 
 ## Theme System
 
@@ -65,39 +107,34 @@ The site supports both light and dark modes with smooth transitions:
 
 Consider these enhancements:
 
-### 1. **Form Integration**
-- Add functional contact/demo request form
-- Integrate with email service (SendGrid, Resend)
-- Form validation and success states
-
-### 2. **Analytics & Tracking**
+### 1. **Analytics & Tracking**
 - Google Analytics or Plausible
 - Conversion tracking
 - Heatmap tools (Hotjar)
 
-### 3. **Content Enhancements**
+### 2. **Content Enhancements**
 - Client testimonials slider
 - Case study cards
 - Trust badges with real certifications
 - FAQ accordion section
 
-### 4. **Performance**
+### 3. **Performance**
 - Image optimization with next/image
 - Lazy loading for below-fold content
 - Service worker for offline support
 
-### 5. **Advanced Interactions**
+### 4. **Advanced Interactions**
 - Smooth scroll to sections
 - Intersection observer animations
 - Cursor trail effects
 - 3D card tilt on hover
 
-### 6. **CMS Integration**
+### 5. **CMS Integration**
 - Headless CMS (Sanity, Contentful)
 - Dynamic content management
 - Blog/resources section
 
-### 7. **A/B Testing**
+### 6. **A/B Testing**
 - Multiple CTA variants
 - Headline testing
 - Layout experiments
