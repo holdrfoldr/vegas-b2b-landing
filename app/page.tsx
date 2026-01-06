@@ -34,7 +34,7 @@ export default function Home() {
               <span>Client Protection</span>
             </h1>
 
-            <p className="text-xl sm:text-2xl md:text-3xl opacity-80 mb-12 max-w-3xl mx-auto">
+            <p className="text-xl sm:text-2xl md:text-3xl opacity-95 mb-12 max-w-3xl mx-auto">
               Automated HIPAA Security & Lead Recovery for High-Volume Med Spas
             </p>
 
@@ -79,7 +79,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               See It <span className={`neon-text ${isDark ? 'text-neon-teal' : 'text-blue-500'}`}>In Action</span>
             </h2>
-            <p className="text-xl opacity-70">
+            <p className="text-xl opacity-90">
               Watch how we protect your practice and recover lost revenue
             </p>
           </motion.div>
@@ -291,7 +291,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Trusted by <span className={`neon-text ${isDark ? 'text-neon-teal' : 'text-blue-500'}`}>Leading</span> Med Spas
             </h2>
-            <p className="text-xl opacity-70">Real results from real businesses</p>
+            <p className="text-xl opacity-90">Real results from real businesses</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -304,7 +304,7 @@ export default function Home() {
             >
               <TrendingUp className={`w-12 h-12 ${isDark ? 'text-neon-teal' : 'text-blue-500'} mx-auto mb-4`} />
               <div className="text-4xl font-bold mb-2">$127K</div>
-              <p className="opacity-70">Average Annual Lead Recovery</p>
+              <p className="opacity-90">Average Annual Lead Recovery</p>
             </motion.div>
 
             <motion.div
@@ -316,7 +316,7 @@ export default function Home() {
             >
               <Shield className={`w-12 h-12 ${isDark ? 'text-neon-teal' : 'text-blue-500'} mx-auto mb-4`} />
               <div className="text-4xl font-bold mb-2">100%</div>
-              <p className="opacity-70">HIPAA Compliance Rate</p>
+              <p className="opacity-90">HIPAA Compliance Rate</p>
             </motion.div>
 
             <motion.div
@@ -328,7 +328,7 @@ export default function Home() {
             >
               <Clock className={`w-12 h-12 ${isDark ? 'text-neon-teal' : 'text-blue-500'} mx-auto mb-4`} />
               <div className="text-4xl font-bold mb-2">&lt;2 min</div>
-              <p className="opacity-70">Average Response Time</p>
+              <p className="opacity-90">Average Response Time</p>
             </motion.div>
           </div>
         </div>
@@ -347,7 +347,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               What <span className={`neon-text ${isDark ? 'text-neon-teal' : 'text-blue-500'}`}>Clients</span> Say
             </h2>
-            <p className="text-xl opacity-70">Real results from real med spas</p>
+            <p className="text-xl opacity-90">Real results from real med spas</p>
           </motion.div>
 
           <Testimonials />
@@ -367,7 +367,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Simple, <span className={`neon-text ${isDark ? 'text-neon-teal' : 'text-blue-500'}`}>Transparent</span> Pricing
             </h2>
-            <p className="text-xl opacity-70">
+            <p className="text-xl opacity-90">
               No setup fees. No contracts. Cancel anytime.
             </p>
           </motion.div>
@@ -389,7 +389,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className={`neon-text ${isDark ? 'text-neon-teal' : 'text-blue-500'}`}>Questions?</span> We&apos;ve Got Answers
             </h2>
-            <p className="text-xl opacity-70">Everything you need to know</p>
+            <p className="text-xl opacity-90">Everything you need to know</p>
           </motion.div>
 
           <FAQ />
@@ -409,7 +409,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Get Your <span className={`neon-text ${isDark ? 'text-neon-teal' : 'text-blue-500'}`}>Free</span> Security Audit
             </h2>
-            <p className="text-xl opacity-70">
+            <p className="text-xl opacity-90">
               See exactly where your practice is vulnerable and how we can help
             </p>
           </motion.div>
@@ -505,7 +505,7 @@ export default function Home() {
 
       {/* Final Footer */}
       <footer className={`py-8 px-4 sm:px-6 lg:px-8 border-t ${isDark ? 'border-neon-teal/10' : 'border-blue-500/10'}`}>
-        <div className="max-w-6xl mx-auto text-center opacity-60 text-sm">
+        <div className="max-w-6xl mx-auto text-center opacity-80 text-sm">
           <p>&copy; 2026 Vegas-Tier Protection. All rights reserved.</p>
         </div>
       </footer>
